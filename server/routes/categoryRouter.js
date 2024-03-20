@@ -16,7 +16,7 @@ router.post("/add_category",verifyToken,async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/",verifyToken,async (req, res) => {
   try {
     const allCategory = await Category.find();
     res.status(200).json(allCategory);

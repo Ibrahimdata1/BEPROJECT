@@ -33,7 +33,7 @@ router.post("/adminlogin", async (req, res) => {
         expiresIn: "3h",
       });
       const { password, ...resInfo } = user._doc;
-      res.cookie("token", token).status(200).json(resInfo);
+      res.cookie("token", token,).status(200).json(resInfo);
     } catch (error) {
       res.status(500).json(error);
     }
