@@ -86,5 +86,13 @@ router.put('/edit_employee/:id',verifyToken,async(req,res)=>{
         res.status(500).json(error)
     }
 })
+router.delete('/delete_employee/:id',verifyToken,async(req,res)=>{
+    try {
+        await Employee.findByIdAndDelete(req.params.id)
+        res.status(200).send('Delete Succesful!')
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
 
 module.exports = router

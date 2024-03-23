@@ -30,7 +30,7 @@ router.post("/adminlogin", async (req, res) => {
         return res.status(401).json({error:"wrong password!"});
       }
       const token = jwt.sign({ id: user._id }, process.env.SECRETKEY, {
-        expiresIn: "3h",
+        expiresIn: "1h",
       });
       const { password, ...resInfo } = user._doc;
       res.cookie("token", token,).status(200).json(resInfo);

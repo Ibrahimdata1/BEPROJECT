@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const authRoute = require("./routes/authRoute");
 const categoryRoute = require("./routes/categoryRouter")
 const employeeRoute = require('./routes/employeeRouter')
@@ -17,6 +18,11 @@ const connectDB = async () => {
   }
 };
 app.use(cookieParser())
+app.use(cookieSession({
+    name:'token',
+    maxAge:24*60*60*1000,
+    keys:[process.env.SECRETKEY]
+}))
 app.use(cors({
     origin: ["http://localhost:5173"],
     methods: ['GET', 'POST', 'PUT', "DELETE"],

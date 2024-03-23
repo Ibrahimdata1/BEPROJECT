@@ -11,6 +11,18 @@ const Employee = () => {
       }
     });
   }, []);
+  const handleDelete = (id) => {
+    axios
+      .delete("http://localhost:5000/employee/delete_employee/" + id)
+      .then((result) => {
+        if (result.status === 200) {
+            window.location.reload()
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="px-5 mt-3">
       <div className="d-flex justify-content-center">
@@ -32,7 +44,7 @@ const Employee = () => {
           </thead>
           <tbody>
             {employee.map((data) => (
-              <tr>
+              <tr key={data._id}>
                 <td>{data.employeName}</td>
                 <td>
                   <img
@@ -50,7 +62,12 @@ const Employee = () => {
                   >
                     Edit
                   </Link>
-                  <button className="btn btn-warning btn-sm">Delete</button>
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => handleDelete(data._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
