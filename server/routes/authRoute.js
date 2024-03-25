@@ -21,7 +21,6 @@ router.post('/register',async(req,res)=>{
 router.post("/adminlogin", async (req, res) => {
     try {
       const user = await User.findOne({ email: req.body.email });
-      console.log(req.body)
       if (!user) {
         return res.status(404).json({error:"user not exist!"});
       }
@@ -49,5 +48,17 @@ router.get("/logout", async (req, res) => {
       res.status(500).json(error);
     }
   });
+router.get('/adminCount',async(req,res)=>{
+    try {
+        const count = await User.countDocuments()
+        if(!count){
+            return res.status(404).json({error:"something went wrong!"})
+        }
+        res.status(200).json(count)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
 
 module.exports = router

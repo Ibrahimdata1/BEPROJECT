@@ -17,7 +17,6 @@ const Login = () => {
         axios.post('http://localhost:5000/auth/adminlogin',values)
         .then(result =>{
           if(result.status === 200){
-            localStorage.setItem("token", true)
             navigate('/dashboard')
           }
         })

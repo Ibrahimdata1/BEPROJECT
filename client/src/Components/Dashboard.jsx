@@ -9,7 +9,6 @@ const Dashboard = () => {
   const handleLogout = () => {
     axios.get("http://localhost:5000/auth/logout").then((result) => {
       if (result.status === 200) {
-        localStorage.removeItem("token")
         navigate("/");
       }
     });

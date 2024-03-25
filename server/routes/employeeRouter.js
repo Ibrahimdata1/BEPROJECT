@@ -63,11 +63,51 @@ router.get("/",verifyToken,async (req, res) => {
     }
   });
 
-router.get('/:id',verifyToken,async(req,res)=>{
-    const id = req.params.id
+router.get('/employeeCount',async(req,res)=>{
     try {
-        const getPost = await Employee.findById(req.params.id)
-        res.status(200).json(getPost)
+        const count = await Employee.countDocuments()
+        if(!count){
+            return res.status(404).json({error:"something went wrong!"})
+        }
+        res.status(200).json(count)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.get('/salaryCount',async(req,res)=>{
+    try {
+        const count = await Employee.aggregate([ { 
+            $group: { 
+                _id: null, 
+                total: { 
+                    $sum: "$salary" 
+                } 
+            } 
+        } ] )
+        if(!count){
+            return res.status(404).json({error:"something went wrong!"})
+        }
+        res.status(200).json(count)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.get('/:id',verifyToken,async(req,res)=>{
+        try {
+            const getPost = await Employee.findById(req.params.id)
+            res.status(200).json(getPost)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    })
+
+
+router.delete('/delete_employee/:id',verifyToken,async(req,res)=>{
+    try {
+        await Employee.findByIdAndDelete(req.params.id)
+        res.status(200).send('Delete Succesful!')
     } catch (error) {
         res.status(500).json(error)
     }
@@ -78,21 +118,13 @@ router.put('/edit_employee/:id',verifyToken,async(req,res)=>{
         if(req.body.password){
             const salt = await bcrypt.genSalt(10)
             req.body.password = await bcrypt.hashSync(req.body.password,salt)
-        }
-        const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
-        const {password,...restInfo}= updatedEmployee._doc
-        res.status(200).json(restInfo)
-    } catch (error){
-        res.status(500).json(error)
-    }
-})
-router.delete('/delete_employee/:id',verifyToken,async(req,res)=>{
-    try {
-        await Employee.findByIdAndDelete(req.params.id)
-        res.status(200).send('Delete Succesful!')
-    } catch (error) {
-        res.status(500).json(error)
-    }
+          }
+      const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
+      const {password,...restInfo}= updatedEmployee._doc
+      res.status(200).json(restInfo)
+  } catch (error){
+      res.status(500).json(error)
+  }
 })
 
 module.exports = router
