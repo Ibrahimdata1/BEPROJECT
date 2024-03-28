@@ -19,7 +19,7 @@ const upload = multer({
 })
 
 
-router.post('/employee_login',verifyToken,async(req,res)=>{
+router.post('/employee_login',async(req,res)=>{
     try {
         const employee = await Employee.findOne({ email: req.body.email });
         if (!employee) {
@@ -126,5 +126,6 @@ router.put('/edit_employee/:id',verifyToken,async(req,res)=>{
       res.status(500).json(error)
   }
 })
+
 
 module.exports = router
