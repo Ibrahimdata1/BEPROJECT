@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Start />} />
         <Route path="/adminlogin" element={<Login />} />
         <Route path="/employee_login" element={<EmployeeLogin />} />
         <Route path="/dashboard" element={<Dashboard />}>

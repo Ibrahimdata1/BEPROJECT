@@ -17,7 +17,7 @@ const EmployeeLogin = () => {
       axios.post('http://localhost:5000/employee/employee_login',values)
       .then(result =>{
         if(result.status === 200){
-          navigate('/employee_details/'+result.data.id)
+          navigate('/employee_details/'+result.data._id)
         }else{
           console.log(result)
         }
@@ -30,7 +30,7 @@ const EmployeeLogin = () => {
       <div className='text-danger d-flex justify-content-center py-2'>
         {error && error}
       </div>
-      <h2>Login Page</h2>
+      <h2 className='d-flex justify-content-center pb-3'>Login Employee</h2>
       <form onSubmit={handleSubmit}>
           <div className='mb-3'>
               <label htmlFor="email">Email:</label>

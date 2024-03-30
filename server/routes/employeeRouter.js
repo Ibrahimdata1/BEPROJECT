@@ -33,7 +33,7 @@ router.post('/employee_login',async(req,res)=>{
           expiresIn: "1h",
         });
         const { password, ...resInfo } = employee._doc;
-        res.cookie("token", token).status(200).json(resInfo);
+        res.cookie("tokenEmp", token).status(200).json(resInfo);
       } catch (error) {
         res.status(500).json(error);
       }
@@ -94,6 +94,17 @@ router.get('/salaryCount',async(req,res)=>{
     }
 })
 
+router.get("/logout", async (req, res) => {
+    try {
+      res
+        .clearCookie("tokenEmp")
+        .status(200)
+        .json({message:"user logged out successfully!"});
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  });
+
 router.get('/:id',verifyToken,async(req,res)=>{
         try {
             const getPost = await Employee.findById(req.params.id)
@@ -126,6 +137,5 @@ router.put('/edit_employee/:id',verifyToken,async(req,res)=>{
       res.status(500).json(error)
   }
 })
-
 
 module.exports = router

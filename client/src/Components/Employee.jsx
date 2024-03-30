@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
+  axios.defaults.withCredentials = true
   useEffect(() => {
     axios.get("http://localhost:5000/employee/").then((result) => {
       if (result.status === 200) {

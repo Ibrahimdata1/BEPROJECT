@@ -1,5 +1,5 @@
 .loginPage {
-    background: url('Images/system.jpg');
+    background: url('../../public/Images/system.jpg');
     background: linear-gradient(rgba(11, 11, 11, 0.5), rgba(10, 10, 10, 0.5)), url("Images/system.jpg");
     background-position: center;
     background-repeat: no-repeat;

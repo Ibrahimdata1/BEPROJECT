@@ -18,7 +18,7 @@ const Register = () => {
   return (
     <div className='d-flex justify-content-center align-items-center  vh-100  loginPage'>
       <div className='p-3 rounded  w-25 border loginForm'>
-        <h2>Register Page</h2>
+        <h2 className='d-flex justify-content-center pb-3 pt-3'>Register Page</h2>
         <form onSubmit={handleSubmit}>
         <div className='mb-3'>
                 <label htmlFor="username">Username:</label>

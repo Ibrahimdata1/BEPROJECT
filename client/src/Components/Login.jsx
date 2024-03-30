@@ -28,7 +28,7 @@ const Login = () => {
         <div className='text-danger d-flex justify-content-center py-2'>
           {error && error}
         </div>
-        <h2>Login Page</h2>
+        <h2 className='d-flex justify-content-center pb-3'>Login Admin</h2>
         <form onSubmit={handleSubmit}>
             <div className='mb-3'>
                 <label htmlFor="email">Email:</label>
