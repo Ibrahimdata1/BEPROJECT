@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './style.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const Register = () => {
     const [values,setValues] = useState({
@@ -9,10 +10,13 @@ const Register = () => {
         email:'',
         password:''
     })
+    const navigate = useNavigate()
     const handleSubmit = (event)=>{
         event.preventDefault()
         axios.post('http://localhost:5000/auth/register',values)
-        .then(result =>console.log(result))
+        .then(result =>{
+            navigate('/adminlogin')
+        })
         .catch(err => console.log(err))
     }
   return (

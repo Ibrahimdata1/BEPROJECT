@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
 const authRoute = require("./routes/authRoute");
 const categoryRoute = require("./routes/categoryRouter")
-const employeeRoute = require('./routes/employeeRouter')
+const employeeRoute = require('./routes/employeeRouter');
+const verifyTokenEmp = require('./verifyTokenEmp');
+const verifyToken = require('./verifyToken')
 
 const connectDB = async () => {
   try {
@@ -28,6 +29,16 @@ app.use(express.static('public'))
 app.use("/auth", authRoute);
 app.use("/category",categoryRoute)
 app.use("/employee",employeeRoute)
+
+app.get('/verifyEmp',verifyTokenEmp,async(req,res)=>{
+      return res.status(200).json({role:'employee',id:req.id})
+
+})
+
+app.get('/verifyAdmin',verifyToken,async(req,res)=>{
+      return res.status(200).json({role:'admin'})
+
+})
 app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log("Server in running in PORT:5000");

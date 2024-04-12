@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const Employee = require('../model/employee')
 const multer = require('multer')
-const verifyToken = require('../verifyToken')
+const verifyTokenEmp = require("../verifyTokenEmp");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -39,7 +39,7 @@ router.post('/employee_login',async(req,res)=>{
       }
 })
 
-router.post('/add_employee',upload.single('image'),verifyToken,async(req,res)=>{
+router.post('/add_employee',upload.single('image'),verifyTokenEmp,async(req,res)=>{
     try {
         const {employeName, email, password,salary,address,category_id} = req.body;
         const image = req.file.filename
@@ -54,7 +54,7 @@ router.post('/add_employee',upload.single('image'),verifyToken,async(req,res)=>{
     }
 })
 
-router.get("/",verifyToken,async (req, res) => {
+router.get("/",verifyTokenEmp,async (req, res) => {
     try {
       const allEmployee = await Employee.find();
       res.status(200).json(allEmployee);
@@ -105,7 +105,7 @@ router.get("/logout", async (req, res) => {
     }
   });
 
-router.get('/:id',verifyToken,async(req,res)=>{
+router.get('/:id',async(req,res)=>{
         try {
             const getPost = await Employee.findById(req.params.id)
             res.status(200).json(getPost)
@@ -115,7 +115,7 @@ router.get('/:id',verifyToken,async(req,res)=>{
     })
 
 
-router.delete('/delete_employee/:id',verifyToken,async(req,res)=>{
+router.delete('/delete_employee/:id',verifyTokenEmp,async(req,res)=>{
     try {
         await Employee.findByIdAndDelete(req.params.id)
         res.status(200).send('Delete Succesful!')
@@ -124,7 +124,7 @@ router.delete('/delete_employee/:id',verifyToken,async(req,res)=>{
     }
 })
 
-router.put('/edit_employee/:id',verifyToken,async(req,res)=>{
+router.put('/edit_employee/:id',verifyTokenEmp,async(req,res)=>{
     try {
         if(req.body.password){
             const salt = await bcrypt.genSalt(10)
