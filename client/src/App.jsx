@@ -11,8 +11,9 @@ import AddCategory from "./Components/AddCategory";
 import AddEmployee from "./Components/AddEmployee";
 import EditEmployee from "./Components/EditEmployee";
 import Start from "./Components/Start";
-import EmployeeLogin from "./Components/EmployeeLogin"
+import EmployeeLogin from "./Components/EmployeeLogin";
 import EmployeeDetails from "./Components/EmployeeDetails";
+import ProtectRoute from "./Components/ProtectRoute";
 
 function App() {
   return (
@@ -21,18 +22,35 @@ function App() {
         <Route path="/" element={<Start />} />
         <Route path="/adminlogin" element={<Login />} />
         <Route path="/employee_login" element={<EmployeeLogin />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="" element={<Home/>}/>
-          <Route path="/dashboard/employee" element={<Employee/>}/>
-          <Route path="/dashboard/category" element={<Category/>}/>
-          <Route path="/dashboard/profile" element={<Profile/>}/>
-          <Route path="/dashboard/add_category" element={<AddCategory/>}/>
-          <Route path="/dashboard/add_employee" element={<AddEmployee/>}/>
-          <Route path="/dashboard/edit_employee/:id" element={<EditEmployee/>}/>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectRoute>
+              <Dashboard />
+            </ProtectRoute>
+          }
+        >
+          <Route path="" element={<Home />} />
+          <Route path="/dashboard/employee" element={<Employee />} />
+          <Route path="/dashboard/category" element={<Category />} />
+          <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/add_category" element={<AddCategory />} />
+          <Route path="/dashboard/add_employee" element={<AddEmployee />} />
+          <Route
+            path="/dashboard/edit_employee/:id"
+            element={<EditEmployee />}
+          />
         </Route>
-        <Route path="/employee_details/:id" element={<EmployeeDetails/>}/>
+        <Route
+          path="/employee_details/:id"
+          element={
+            <ProtectRoute>
+              <EmployeeDetails />
+            </ProtectRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
-        <Route path="/start" element={<Start/>}/>
+        <Route path="/start" element={<Start />} />
       </Routes>
     </BrowserRouter>
   );

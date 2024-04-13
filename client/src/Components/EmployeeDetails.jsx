@@ -20,6 +20,7 @@ const EmployeeDetails = () => {
         axios.get('http://localhost:5000/employee/logout')
         .then(result => {
           if(result.status === 200) {
+            localStorage.removeItem('valid')
             navigate('/')
             window.location.reload()
           }

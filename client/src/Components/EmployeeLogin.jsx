@@ -17,6 +17,7 @@ const EmployeeLogin = () => {
       axios.post('http://localhost:5000/employee/employee_login',values)
       .then(result =>{
         if(result.status === 200){
+          localStorage.setItem('valid',true)
           navigate('/employee_details/'+result.data._id)
         }else{
           console.log(result)
