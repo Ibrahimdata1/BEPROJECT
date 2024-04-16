@@ -43,3 +43,5 @@ app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log("Server in running in PORT:5000");
 });
+
+module.exports = app
