@@ -72,4 +72,13 @@ router.get('/adminRecords',async(req,res)=>{
     }
 })
 
+router.get('/test',async(req,res)=>{
+    try {
+        const token = jwt.sign({ id: 12121}, process.env.SECRETKEY);
+          res.cookie("token", token,).status(200)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 module.exports = router

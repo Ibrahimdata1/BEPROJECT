@@ -1,12 +1,22 @@
 {
+  "homepage":"http://Ibrahimdata1.github.io/BEPROJECT",
   "name": "beproject",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "predeploy":"npm run build",
+    "deploy": "gh-pages -d dist" 
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1"
+  }
 }
